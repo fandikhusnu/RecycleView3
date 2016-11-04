@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,8 +22,11 @@ import id.sch.smktelkom_mlg.learn.recyclerview3.model.Hotel;
 public class MainActivity extends AppCompatActivity implements HotelAdapter.IHotelAdapter {
 
     public static final String HOTEL = "hotel";
+    public static final int REQUEST_CODE_ADD = 88;
+    public static final int REQUEST_CODE_EDIT = 99;
     ArrayList<Hotel> mList = new ArrayList<>();
     HotelAdapter mAdapter;
+    int itemPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +44,29 @@ public class MainActivity extends AppCompatActivity implements HotelAdapter.IHot
         fillData();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                goAdd();
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_EDIT && resultCode == RESULT_OK) {
+            Hotel hotel = (Hotel) data.getSerializableExtra(HOTEL);
+            mList.remove(itemPos);
+            mList.add(itemPos, hotel);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void goAdd() {
+        startActivityForResult(new Intent(this, InputActivity.class), REQUEST_CODE_ADD);
     }
 
     @Override
@@ -93,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements HotelAdapter.IHot
         a.recycle();
 
         for (int i = 0; i < arJudul.length; i++) {
-            mList.add(new Hotel(arJudul[i], arDeskripsi[i], arDetail[i], arLokasi[i], arFoto[i]));
+            mList.add(new Hotel(arJudul[i], arDeskripsi[i],
+                    arDetail[i], arLokasi[i], arFoto[i]));
         }
         mAdapter.notifyDataSetChanged();
     }
@@ -103,5 +121,28 @@ public class MainActivity extends AppCompatActivity implements HotelAdapter.IHot
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(HOTEL, mList.get(pos));
         startActivity(intent);
+    }
+
+    @Override
+    public void doEdit(int pos) {
+        itemPos = pos;
+        Intent intent = new Intent(this, InputActivity.class);
+        intent.putExtra(HOTEL, mList.get(pos));
+        startActivityForResult(intent, REQUEST_CODE_EDIT);
+    }
+
+    @Override
+    public void doDelete(int pos) {
+
+    }
+
+    @Override
+    public void doFav(int pos) {
+
+    }
+
+    @Override
+    public void doShare(int pos) {
+
     }
 }
