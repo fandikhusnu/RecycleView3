@@ -7,7 +7,7 @@ Nama Project : <b>RecycleView3</b>
 <img src="https://cloud.githubusercontent.com/assets/22116846/20031716/5aaa467a-a3ae-11e6-88fb-089e419e2466.JPG" width="240px" height="400px">
 <br>
 <br>
-<img src="https://cloud.githubusercontent.com/assets/22116846/20031717/5aadc7be-a3ae-11e6-9eaf-750753ec4aa2.JPG" width="240px" height="400px">
+<img src="https://cloud.githubusercontent.com/assets/22116846/20031771/77da1cec-a3af-11e6-9dec-b3db0b1666da.JPG" width="240px" height="400px">
 <img src="https://cloud.githubusercontent.com/assets/22116846/20031710/5a78816c-a3ae-11e6-94a4-d2fb61ce39f9.JPG" width="240px" height="400px">
 <img src="https://cloud.githubusercontent.com/assets/22116846/20031712/5a7aad34-a3ae-11e6-9273-3a9a2e04c0c1.JPG" width="240px" height="400px">
 <br>
